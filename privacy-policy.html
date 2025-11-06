@@ -294,6 +294,10 @@
             box-shadow: var(--md-sys-elevation-level1);
         }
 
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
         .contact-info ul {
             list-style: none;
             padding-left: 0;
@@ -305,14 +309,14 @@
             padding-left: var(--md-sys-spacing-8);
             position: relative;
             color: var(--md-sys-color-on-surface-variant);
+            display: flex;
+            align-items: center;
+            gap: var(--md-sys-spacing-2);
         }
 
-        .contact-info li:before {
-            content: "•";
+        .contact-info li span {
             position: absolute;
             left: 0;
-            color: var(--md-sys-color-primary);
-            font-weight: bold;
             font-size: 1.5rem;
         }
 
@@ -687,12 +691,16 @@
             </section>
 
             <section id="contact">
-                <h2>Contact</h2>
-                <p>If you have any questions, concerns, or requests regarding this Privacy Policy or data practices, please contact:</p>
+                <h2>Contact Information</h2>
                 <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>If you have any questions, concerns, or requests regarding this Privacy Policy or data practices, please contact</p>
                     <ul>
-                        <li><strong>GitHub Issues:</strong> <a href="https://github.com/alpesh-valia/notification-history/issues" target="_blank">github.com/alpesh-valia/notification-history/issues</a></li>
-                        <li><strong>GitHub Repository:</strong> <a href="https://github.com/alpesh-valia/notification-history" target="_blank">github.com/alpesh-valia/notification-history</a></li>
+                        <li>
+                            <span class="material-symbols-outlined">mail</span>
+                            <strong>Email:</strong> 
+                            <a href="mailto:afterpinglabs@gmail.com">afterpinglabs@gmail.com</a>
+                        </li>
                     </ul>
                 </div>
             </section>
