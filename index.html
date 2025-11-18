@@ -268,11 +268,142 @@
             object-fit: cover;
             box-shadow: var(--md-sys-elevation-level2);
             transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+            cursor: pointer;
         }
 
         .screenshot-img:hover {
             transform: scale(1.02);
             box-shadow: var(--md-sys-elevation-level3);
+        }
+
+        /* Image Viewer Modal */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .image-viewer.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .image-viewer-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--md-sys-shape-corner-medium);
+            box-shadow: var(--md-sys-elevation-level5);
+        }
+
+        .image-viewer-close {
+            position: absolute;
+            top: var(--md-sys-spacing-4);
+            right: var(--md-sys-spacing-4);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 10001;
+        }
+
+        .image-viewer-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .image-viewer-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 28px;
+            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 10001;
+        }
+
+        .image-viewer-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .image-viewer-nav.prev {
+            left: var(--md-sys-spacing-4);
+        }
+
+        .image-viewer-nav.next {
+            right: var(--md-sys-spacing-4);
+        }
+
+        .image-viewer-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .image-viewer-nav:disabled:hover {
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .image-viewer-nav {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+
+            .image-viewer-nav.prev {
+                left: var(--md-sys-spacing-2);
+            }
+
+            .image-viewer-nav.next {
+                right: var(--md-sys-spacing-2);
+            }
+
+            .image-viewer-close {
+                top: var(--md-sys-spacing-2);
+                right: var(--md-sys-spacing-2);
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
         }
 
         .highlight {
@@ -749,10 +880,10 @@
                 <h2>App Screenshots</h2>
                 <p>Take a look at AfterPing in action:</p>
                 <div class="screenshots">
-                    <img src="1_home_page.jpg" alt="Main Notification History View" class="screenshot-img">
-                    <img src="2_insights.jpg" alt="Search & Filter Interface" class="screenshot-img">
-                    <img src="3_reminders.jpg" alt="Reminder Creation" class="screenshot-img">
-                    <img src="5_focus_session_details.jpg" alt="Focus Session Details" class="screenshot-img">
+                    <img src="1_home_page.jpg" alt="Main Notification History View" class="screenshot-img" data-index="0">
+                    <img src="2_insights.jpg" alt="Search & Filter Interface" class="screenshot-img" data-index="1">
+                    <img src="3_reminders.jpg" alt="Reminder Creation" class="screenshot-img" data-index="2">
+                    <img src="5_focus_session_details.jpg" alt="Focus Session Details" class="screenshot-img" data-index="3">
                 </div>
             </section>
 
@@ -790,5 +921,114 @@
             <a href="privacy-policy.html">Privacy Policy</a>
         </p>
     </footer>
+
+    <!-- Image Viewer Modal -->
+    <div class="image-viewer" id="imageViewer">
+        <button class="image-viewer-close" id="closeViewer" aria-label="Close">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <button class="image-viewer-nav prev" id="prevImage" aria-label="Previous">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <div class="image-viewer-content">
+            <img id="viewerImage" src="" alt="">
+        </div>
+        <button class="image-viewer-nav next" id="nextImage" aria-label="Next">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+    </div>
+
+    <script>
+        // Image viewer functionality
+        (function() {
+            const screenshots = document.querySelectorAll('.screenshot-img');
+            const viewer = document.getElementById('imageViewer');
+            const viewerImage = document.getElementById('viewerImage');
+            const closeBtn = document.getElementById('closeViewer');
+            const prevBtn = document.getElementById('prevImage');
+            const nextBtn = document.getElementById('nextImage');
+            
+            let currentIndex = 0;
+            const images = Array.from(screenshots).map(img => ({
+                src: img.src,
+                alt: img.alt
+            }));
+
+            function openViewer(index) {
+                currentIndex = index;
+                updateViewer();
+                viewer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeViewer() {
+                viewer.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function updateViewer() {
+                viewerImage.src = images[currentIndex].src;
+                viewerImage.alt = images[currentIndex].alt;
+                
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === images.length - 1;
+            }
+
+            function showNext() {
+                if (currentIndex < images.length - 1) {
+                    currentIndex++;
+                    updateViewer();
+                }
+            }
+
+            function showPrev() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateViewer();
+                }
+            }
+
+            // Open viewer on screenshot click
+            screenshots.forEach((img, index) => {
+                img.addEventListener('click', () => openViewer(index));
+            });
+
+            // Close button
+            closeBtn.addEventListener('click', closeViewer);
+
+            // Navigation buttons
+            nextBtn.addEventListener('click', showNext);
+            prevBtn.addEventListener('click', showPrev);
+
+            // Close on background click
+            viewer.addEventListener('click', (e) => {
+                if (e.target === viewer) {
+                    closeViewer();
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!viewer.classList.contains('active')) return;
+
+                switch(e.key) {
+                    case 'Escape':
+                        closeViewer();
+                        break;
+                    case 'ArrowLeft':
+                        showPrev();
+                        break;
+                    case 'ArrowRight':
+                        showNext();
+                        break;
+                }
+            });
+
+            // Prevent body scroll when viewer is open
+            viewer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+            }, { passive: false });
+        })();
+    </script>
 </body>
 </html>
