@@ -260,6 +260,21 @@
             opacity: 0.7;
         }
 
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--md-sys-shape-corner-medium);
+            aspect-ratio: 9/16;
+            object-fit: cover;
+            box-shadow: var(--md-sys-elevation-level2);
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .screenshot-img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--md-sys-elevation-level3);
+        }
+
         .highlight {
             background: var(--md-sys-color-primary-container);
             color: var(--md-sys-color-on-primary-container);
@@ -489,6 +504,10 @@
                 font-size: 0.875rem;
             }
 
+            .screenshot-img {
+                aspect-ratio: 9/16;
+            }
+
             .download-btn {
                 padding: var(--md-sys-spacing-3) var(--md-sys-spacing-8);
                 font-size: 0.875rem;
@@ -551,6 +570,10 @@
             .screenshot-placeholder {
                 min-height: 300px;
                 font-size: 0.875rem;
+            }
+
+            .screenshot-img {
+                aspect-ratio: 9/16;
             }
 
             .download-section {
@@ -726,26 +749,10 @@
                 <h2>App Screenshots</h2>
                 <p>Take a look at AfterPing in action:</p>
                 <div class="screenshots">
-                    <div class="screenshot-placeholder">
-                        <span class="material-symbols-outlined" style="font-size: 3rem; opacity: 0.5;">phone_android</span>
-                        Screenshot 1
-                        <small>Main Notification History View</small>
-                    </div>
-                    <div class="screenshot-placeholder">
-                        <span class="material-symbols-outlined" style="font-size: 3rem; opacity: 0.5;">phone_android</span>
-                        Screenshot 2
-                        <small>Search & Filter Interface</small>
-                    </div>
-                    <div class="screenshot-placeholder">
-                        <span class="material-symbols-outlined" style="font-size: 3rem; opacity: 0.5;">phone_android</span>
-                        Screenshot 3
-                        <small>Reminder Creation</small>
-                    </div>
-                    <div class="screenshot-placeholder">
-                        <span class="material-symbols-outlined" style="font-size: 3rem; opacity: 0.5;">phone_android</span>
-                        Screenshot 4
-                        <small>Statistics & Insights</small>
-                    </div>
+                    <img src="1_home_page.jpg" alt="Main Notification History View" class="screenshot-img">
+                    <img src="2_insights.jpg" alt="Search & Filter Interface" class="screenshot-img">
+                    <img src="3_reminders.jpg" alt="Reminder Creation" class="screenshot-img">
+                    <img src="5_focus_session_details.jpg" alt="Focus Session Details" class="screenshot-img">
                 </div>
             </section>
 
