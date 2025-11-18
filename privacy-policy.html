@@ -556,6 +556,7 @@
                         <li>Archived notifications</li>
                         <li>Reminder settings</li>
                         <li>App organization preferences (tags, pinning, etc.)</li>
+                        <li>Focus session history and settings</li>
                     </ul>
                 </div>
 
@@ -602,6 +603,7 @@
                     <li><strong>Reminders:</strong> Create and manage reminders based on notifications</li>
                     <li><strong>Organization:</strong> Allow you to organize notifications by apps, tags, favorites, etc.</li>
                     <li><strong>Statistics:</strong> Provide insights about your notification patterns</li>
+                    <li><strong>Focus Sessions:</strong> Enable focus mode functionality to temporarily block notifications and track focus session history</li>
                 </ul>
 
                 <h3>Permissions Required</h3>
@@ -613,6 +615,54 @@
                     <li><strong>Battery Optimization Exemption:</strong> To ensure reminders work reliably</li>
                 </ul>
                 <p>All permissions are used <strong>solely</strong> for the App's core functionality and are not used for any other purpose.</p>
+            </section>
+
+            <section id="focus-sessions">
+                <h2>Focus Sessions</h2>
+                
+                <h3>What Are Focus Sessions?</h3>
+                <p>
+                    Focus Sessions is a feature in AfterPing that allows you to temporarily block notifications from appearing 
+                    in your notification bar. When a focus session is active, notifications from selected apps are automatically 
+                    dismissed from the notification bar, helping you stay focused on your current task.
+                </p>
+
+                <h3>How Focus Sessions Work</h3>
+                <div class="highlight-box">
+                    <p><strong>Notification Handling During Focus Sessions:</strong></p>
+                    <ul>
+                        <li>When a focus session is active, notifications from apps you've configured are automatically dismissed from your notification bar</li>
+                        <li><strong>All notifications are still saved to your notification history</strong>, even if they were dismissed during a focus session</li>
+                        <li>You can view these notifications later in your notification history after the focus session ends</li>
+                        <li>High-priority and emergency notifications may not be dismissed to ensure important alerts are not missed</li>
+                        <li>You have full control over which apps are affected by focus sessions through app exclusion settings</li>
+                    </ul>
+                </div>
+
+                <h3>Focus Session Data Storage</h3>
+                <p>The following information is stored locally on your device for focus sessions:</p>
+                <ul>
+                    <li><strong>Focus Session History:</strong> Start time, end time, and duration of each focus session</li>
+                    <li><strong>Session Status:</strong> Whether a focus session is currently active or completed</li>
+                    <li><strong>App Configuration:</strong> Your preferences for which apps should be affected by focus sessions</li>
+                </ul>
+                <p><strong>This data is stored only on your device and is never transmitted to any external servers.</strong></p>
+
+                <h3>Persistent Notification</h3>
+                <p>
+                    During an active focus session, AfterPing displays a persistent notification in your notification bar to indicate 
+                    that focus mode is active. This notification shows the remaining time for the focus session and provides quick 
+                    access to stop the session. This notification is displayed locally on your device and does not transmit any data.
+                </p>
+
+                <h3>Your Control</h3>
+                <ul>
+                    <li>You can start, stop, or extend focus sessions at any time</li>
+                    <li>You can configure which apps are excluded from focus session dismissal</li>
+                    <li>You can view your focus session history</li>
+                    <li>You can delete individual focus session records from your history</li>
+                    <li>All focus session data is deleted when you uninstall the App</li>
+                </ul>
             </section>
 
             <section id="data-security">
@@ -640,10 +690,11 @@
                 <h3>Your Rights</h3>
                 <p>You have complete control over your data:</p>
                 <ul>
-                    <li><strong>Delete Individual Items:</strong> Delete specific notifications or apps at any time</li>
+                    <li><strong>Delete Individual Items:</strong> Delete specific notifications, apps, or focus session records at any time</li>
                     <li><strong>Bulk Deletion:</strong> Delete multiple items using selection mode</li>
                     <li><strong>Archive:</strong> Archive notifications to remove them from the main view</li>
-                    <li><strong>Uninstall:</strong> Uninstalling the App permanently deletes all stored data</li>
+                    <li><strong>Focus Session History:</strong> Delete individual focus session records from your history</li>
+                    <li><strong>Uninstall:</strong> Uninstalling the App permanently deletes all stored data, including focus session history</li>
                 </ul>
 
                 <h3>How to Delete Data</h3>
